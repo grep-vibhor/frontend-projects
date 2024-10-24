@@ -1,0 +1,135 @@
+body {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.scoreboard {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    gap: 100px;
+    backdrop-filter: blur(10px);
+}
+
+.team-score {
+    text-align: center;
+}
+
+.team-name {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    letter-spacing: 2px;
+}
+
+.score-display {
+    background: linear-gradient(to bottom, #000000, #1a1a1a);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8),
+                0 0 30px rgba(255, 0, 0, 0.2);
+    position: relative;
+    border: 2px solid #333;
+}
+
+.score-display::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, 
+        transparent, 
+        rgba(255, 255, 255, 0.1), 
+        transparent);
+}
+
+.digital-number {
+    color: #ff3131;
+    font-size: 120px;
+    font-family: "Digital-7", monospace;
+    text-shadow: 0 0 20px rgba(255, 49, 49, 0.7);
+    position: relative;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.button {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(145deg, #2a5298, #1e3c72);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3),
+                -5px -5px 15px rgba(255, 255, 255, 0.1);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.4),
+                -7px -7px 20px rgba(255, 255, 255, 0.15);
+}
+
+.button:active {
+    transform: translateY(2px);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4),
+                -3px -3px 10px rgba(255, 255, 255, 0.1);
+}
+
+.button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    transition: all 0.3s ease;
+}
+
+.button:hover::after {
+    transform: rotate(45deg) translateY(-50%);
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 20px rgba(255, 49, 49, 0.7);
+    }
+    to {
+        text-shadow: 0 0 30px rgba(255, 49, 49, 0.9),
+                    0 0 40px rgba(255, 49, 49, 0.6),
+                    0 0 50px rgba(255, 49, 49, 0.4);
+    }
+}
+
+@font-face {
+    font-family: 'Digital-7';
+    src: url('data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAdIAA0AAAAAClQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAHLAAAABwAAAAcfNvBp0dERUYAAAcMAAAAHAAAAB4AJwAUT1MvMgAAAZQAAAA/AAAAYA8TBPhjbWFwAAAB7AAAAFUAAAFeF1fZ4mdhc3AAAAcEAAAACAAAAAgAAAAQZ2x5ZgAAAlgAAANcAAAEZAkFE09oZWFkAAABMAAAACsAAAA2DyKdSmhoZWEAAAFcAAAAHgAAACQGkwKmaG10eAAAAdQAAAA2AAAAQBwAAABsb2NhAAACQAAAACIAAAAiAiwCLm1heHAAAAF8AAAAGAAAACAADgD3bmFtZQAABbQAAAEjAAACHlK+EmFwb3N0AAAHGAAAADAAAABSYZqnJ3icY2BkYGAA4ogbscvj+W2+MnAzMYDAhScsz2H0/z//9zMxMh4EcjkYQCIAYwINznicY2BkYGA8+H8PQyqQy8DAxMDIwMqACwBMvwLyAAAAAAEAAAACADQABAAAAAAAAgAAAAEAAQAAAEAALgAAAAB4nGNgYWJg/MLAysDA6MOYxsDA4A6lvzJIMrQwMDAxsHIywIEAgskQkOaawuDwgOEBIxsTcHCLA1JYUJgZGBi/gtiLDw8wH2RgYEgGUsYABwC+CQh7eJxjYmAQZGBgYGVkYBBkEGJgZWBn4GBQ+v+fQZpBkoGLgREoysAgiMDAIMXgxaCkIM4gzRDGwPD/IYPUg90MOgwKDAoMygzKYHEARZYRGgAAAHicXY6/asMwFMVPsms7tNB/GBoyBNmJ8WQcyNwt0CFDt+IhtpBtbCmTh0B3v0JfpM/Ud+gH9CRfQqGDkO7vnqN7JQAf+IXA89wRW2GBN+4VXuEdX8Yr0m/DVfKO8Zr0h/GGhL16FsIbjvhGMbQu8MlvhVd4xY/xivTKuCL9abwm/WW8wTYopSRqnJCixzlyUAwPX7gjvKPfK0aoYWBXx97aQ2hCL5OCzj4GVeaeo7bey1tUzgkHWp0O57F3N3fvxjqVurF5LrPz7TDqJBzGwD03p/7gvA26twc6myZ0Z8cYnLX9zGox5K7tTXWSFI7eKRVPLsgQrRqzq9wk2c/Kvk+yNDcEwR+dQXicY2BmQAaMDGgAAACOAAU=') format('woff');
+}

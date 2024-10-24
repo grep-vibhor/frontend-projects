@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="scoreboard">
+        <div class="team-score">
+            <div class="team-name">HOME</div>
+            <div class="score-display">
+                <div id="home-score" class="digital-number">0</div>
+            </div>
+            <div class="buttons">
+                <button id="home-plus-button" onclick="addPointHome()" class="button">+1</button>
+                <button id="home-double-button" onclick="addDoubleHome()" class="button">+2</button>
+                <button id="home-triple-button" onclick="addTripleHome()" class="button">+3</button>
+            </div>
+        </div>
+        
+        <div class="team-score">
+            <div class="team-name">GUEST</div>
+            <div class="score-display">
+                <div id="guest-score" class="digital-number">0</div>
+            </div>
+            <div class="buttons">
+                <button id="guest-plus-button" onclick="addPointGuest()" class="button">+1</button>
+                <button id="guest-double-button" onclick="addDoubleGuest()" class="button">+2</button>
+                <button id="guest-triple-button" onclick="addTripleGuest()" class="button">+3</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
