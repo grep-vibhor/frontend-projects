@@ -1,0 +1,54 @@
+.common-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  /* List styles */
+.list-container {
+  width: 100%;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.list-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.list-items li {
+  padding: 12px;
+  margin-bottom: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  color: #333;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.list-items li:hover {
+  background-color: #e9ecef;
+  transform: translateX(5px);
+}
+
+/* Optional: Add a subtle animation for new items */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.list-items li {
+  animation: fadeIn 0.3s ease forwards;
+}

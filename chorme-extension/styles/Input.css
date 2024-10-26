@@ -1,0 +1,21 @@
+
+.green-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  
+  .green-input:focus {
+    border-color: #45a049;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  }
+
+  
