@@ -1,0 +1,90 @@
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.dropdown-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: white;
+  color: #333;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 12px 40px 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  outline: none;
+}
+
+.dropdown::after {
+  content: "";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #333;
+  pointer-events: none;
+}
+
+.content-area {
+  background-color: #FFE5E5;  /* Light pink background for error */
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #333;
+}
+
+.error-message {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.retry-button {
+  background-color: #D84040;  /* Red color matching the image */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.retry-button:hover {
+  background-color: #C23030;
+}
+
+/* Normal state styling */
+.content-area.normal {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+}
+
+.language-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.repository-details {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+}
