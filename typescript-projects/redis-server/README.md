@@ -4,7 +4,7 @@ basic commands like `PING`, `SET` and `GET` using the Redis protocol and more.
 
 # Usage
 
-The entry point for your Redis implementation is in `app/main.ts`. 
+The entry point for Redis implementation is in `app/main.ts`. 
 
 ```sh
 npm install
