@@ -3,7 +3,7 @@ import httpStringParser from 'http-string-parser';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { promises as fs } from 'fs';
-
+import path from 'path';
 
 console.log("Logs from your program will appear here!");
 
@@ -16,7 +16,7 @@ interface FileMetaData {
 
 let headers: Record<string,string> = {};
 let method: string = '';
-let path: string = '';
+let uri: string = '';
 let body: string = '';
 
 const server_args = yargs(hideBin(process.argv))
@@ -57,7 +57,37 @@ async function readFileDetails(filePath: string): Promise<FileMetaData> {
         
         throw error;
     }
+}
+
+async function createAndWriteFile(filePath: string, contents: string, options?: { 
+    encoding?: BufferEncoding, 
+    flag?: string 
+  }) {
+    try {
+      // Ensure the directory exists
+      const directory = path.dirname(filePath);
+      await fs.access(directory);
+  
+      // Write contents to the file
+      await fs.writeFile(filePath, contents, {
+        encoding: options?.encoding ?? 'utf-8',
+        flag: options?.flag ?? 'w' 
+      });
+  
+      console.log(`File successfully created at: ${filePath}`);
+  
+      const stats = await fs.stat(filePath);
+      return {
+        path: filePath,
+        size: stats.size
+      };
+    } catch (error) {
+      console.error('Error creating/writing file:', error);
+      throw error;
     }
+}
+
+
 
 const server = net.createServer((socket: net.Socket) => {
   
@@ -66,19 +96,19 @@ const server = net.createServer((socket: net.Socket) => {
         const parsedRequest = httpStringParser.parseRequest(data.toString());
         method = parsedRequest.method
         headers = parsedRequest.headers
-        path = parsedRequest.uri
+        uri = parsedRequest.uri
         body = parsedRequest.body
 
-        if (path === "/"){
+        if (uri === "/"){
             socket.write("HTTP/1.1 200 OK\r\n\r\n")
         }
-        else if (path.startsWith("/echo")){
+        else if (uri.startsWith("/echo")){
 
-            const echoStr = path.split("/")[2]
+            const echoStr = uri.split("/")[2]
             socket.write(`HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: ${echoStr.length}\r\n\r\n${echoStr}`)
         }
 
-        else if (path.startsWith("/user-agent")){
+        else if (uri.startsWith("/user-agent")){
 
             const userAgent: string | undefined = headers["User-Agent"]
             
@@ -90,17 +120,24 @@ const server = net.createServer((socket: net.Socket) => {
             }
         }
 
-        else if (path.startsWith("/files")){
+        else if (uri.startsWith("/files")){
 
-            const fileName: string = path.split("/")[2]
+            const fileName: string = uri.split("/")[2]
 
-            const fileData: FileMetaData = await readFileDetails(`${server_args.directory}/${fileName}`)
+            if(method === "GET"){
+                const fileData: FileMetaData = await readFileDetails(`${server_args.directory}/${fileName}`)
 
-            if (fileData.exists){
-                socket.write(`HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: ${fileData.sizeInBytes}\r\n\r\n${fileData.contents}`)
+                if (fileData.exists){
+                    socket.write(`HTTP/1.1 200 OK\r\nContent-Type: application/octet-stream\r\nContent-Length: ${fileData.sizeInBytes}\r\n\r\n${fileData.contents}`)
+                }
+                else{
+                    socket.write("HTTP/1.1 404 Not Found\r\n\r\n")
+                }
             }
             else{
-                socket.write("HTTP/1.1 404 Not Found\r\n\r\n")
+                console.log(body)
+                await createAndWriteFile(`${server_args.directory}/${fileName}`, body)
+                socket.write("HTTP/1.1 201 Created\r\n\r\n")
             }
         }
 
@@ -109,7 +146,7 @@ const server = net.createServer((socket: net.Socket) => {
         }
     })
     
-    socket.on("error", (err: net.error) => {
+    socket.on("error", (err: net.err) => {
         console.error('Connection error:', err)
         socket.end();
       });
