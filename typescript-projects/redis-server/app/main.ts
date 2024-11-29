@@ -45,7 +45,7 @@ function writeRESPArray(array: string[]): string {
 const server: net.Server = net.createServer((connection: net.Socket) => {
 
   const parser = new Parser();
-    connection.on('data', data => {
+    connection.on('data', (data: string) => {
         parser.write(data); // Feed raw data to the parser
         })
 
@@ -165,7 +165,7 @@ const server: net.Server = net.createServer((connection: net.Socket) => {
     // }
   })
 
-  connection.on('error', (err) => {
+  connection.on('error', (err: net.error) => {
     console.error('Connection error:', err);
   });
 
