@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "http-string-parser": "^0.0.6",
-    "parse-raw-http": "^0.0.1"
+    "parse-raw-http": "^0.0.1",
+    "yargs": "^17.7.2"
   }
 }
